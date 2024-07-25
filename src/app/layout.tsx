@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
-import Header from "../../components/header";
-import Footer from "../../components/footer";
+import Header from "../components/header";
+import Footer from "../components/footer";
 export default function RootLayout({
   children,
 }: Readonly<{

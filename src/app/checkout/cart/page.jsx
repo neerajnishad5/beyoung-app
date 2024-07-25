@@ -8,7 +8,7 @@ const cartSummary = [
     value: "₹9097",
   },
   {
-    description: "Beyoung Discount",
+    description: "BeYoung Discount",
     value: "- ₹5101",
   },
   {
@@ -120,7 +120,7 @@ export default function Cart() {
               color="primary"
             >
               CHECKOUT SECURELY
-            </Button>{" "}
+            </Button>
           </div>
         </div>
       </div>
