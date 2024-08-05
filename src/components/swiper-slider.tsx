@@ -1,39 +1,90 @@
 "use client";
-// import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, Pagination, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import "swiper/css/navigation";
+// import "swiper/css/scrollbar";
 import { Image } from "@nextui-org/react";
 import SwiperCore from "swiper";
-SwiperCore.use([Pagination]);
+import { useState } from "react";
+import { LiaAngleLeftSolid } from "react-icons/lia";
+import { LiaAngleRightSolid } from "react-icons/lia";
+// Import only required modules
+SwiperCore.use([Navigation, Pagination, A11y]);
 
-const SliderSwiper = ({ images, slidesPerView, isLoop }) => {
+// import required modules
+import { Autoplay } from "swiper/modules";
+
+const SliderSwiper = ({
+  images,
+  slidesPerView,
+  isLoop,
+  className,
+  spaceBetween,
+  imageStyles,
+  showNavigation, // Prop to determine if navigation buttons should be shown
+  autoplay,
+}) => {
+  const [swiper, setSwiper] = useState(null);
+
+  const goNext = () => {
+    if (swiper) {
+      swiper.slideNext();
+    }
+  };
+
+  const goPrev = () => {
+    if (swiper) {
+      swiper.slidePrev();
+    }
+  };
   return (
-    <>
+    <div className={`relative swiper-slider ${className}`}>
+      {showNavigation && (
+        <>
+          <button
+            onClick={goPrev}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 w-8 h-8  bg-white shadow-md flex items-center justify-center z-10"
+          >
+            <LiaAngleLeftSolid />
+          </button>
+          <button
+            onClick={goNext}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 w-8 h-8  bg-white shadow-md flex items-center justify-center z-10"
+          >
+            <LiaAngleRightSolid />
+          </button>
+        </>
+      )}
       <Swiper
-        modules={[Navigation, Pagination, A11y]}
-        spaceBetween={50}
+        spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
-        navigation
+        navigation={false} // Disable default navigation to use custom buttons
         loop={isLoop || false}
         className="mySwiper"
-        centeredSlides={true}
+        // centeredSlides={true}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={setSwiper}
         onSlideChange={() => console.log("slide change")}
+        autoplay={autoplay}
+        speed={7000}
+        modules={[Autoplay]}
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <Image src={image.link} alt={`Slide ${index + 1}`} />
+            <img
+              className={`${imageStyles}`}
+              src={image.link}
+              alt={`Slide ${index + 1}`}
+              style={{
+                borderRadius: slidesPerView > 2 ? "11px" : "",
+              }}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 

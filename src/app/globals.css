@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* styles/globals.css */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Hide the default icon of NextUI Accordion */
+/* .nextui-accordion-item .nextui-accordion-icon {
+    display: none;
+  } */
+  
+
+
+/* Additional custom styles for react-select */
+.react-select__control {
+  @apply border-gray-300;
+}
+.react-select__option--is-focused {
+  @apply bg-gray-100;
+}
+.react-select__option--is-selected {
+  @apply bg-gray-200;
+}
+
+ 
